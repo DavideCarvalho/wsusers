@@ -2,15 +2,14 @@ var mongoose = require('mongoose');
 var model = mongoose.model('User');
 const api = {};
 
-api.lista = function (req, res) {
-  model
-    .find()
-    .then(
-    users => res.json(users),
-    error => {
-      console.log(error);
-      res.sendStatus(500);
-    });
+api.lista = async function (req, res) {
+  try {
+    const user = await model.find();
+    res.status(200).json(users)
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
 };
 
 api.buscaPorId = function (req, res) {
